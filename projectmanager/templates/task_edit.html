@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm p-4">
+    <h2 class="text-primary">Edit Task: {{ task.title }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" value="{{ task.title }}">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="description" class="form-control rounded-3">{{ task.description }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="due_date" class="form-label">Due Date</label>
+        <input type="date" name="due_date" class="form-control" value="{{ task.due_date }}">
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

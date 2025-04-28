@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow-lg border-0 rounded-4 p-5 bg-white" style="width: 100%; max-width: 500px;">
+    <h2 class="text-center mb-4 text-success fw-bold">Create an Account</h2>
+
+    {% if form.errors %}
+      <div class="alert alert-danger rounded-3">
+        <strong class="d-block mb-2">Something went wrong:</strong>
+        <ul class="mb-0 ps-3">
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="id_username" class="form-label fw-medium">Username</label>
+        {{ form.username|add_class:"form-control rounded-pill px-4 py-2" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_email" class="form-label fw-medium">Email Address</label>
+        {{ form.email|add_class:"form-control rounded-pill px-4 py-2" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password1" class="form-label fw-medium">Password</label>
+        {{ form.password1|add_class:"form-control rounded-pill px-4 py-2" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password2" class="form-label fw-medium">Confirm Password</label>
+        {{ form.password2|add_class:"form-control rounded-pill px-4 py-2" }}
+      </div>
+
+      <button type="submit" class="btn btn-success w-100 rounded-pill py-2 mt-2 fw-semibold">Register</button>
+    </form>
+
+    <div class="text-center mt-4">
+      <small>Already have an account?
+        <a href="{% url 'login' %}" class="text-decoration-none text-primary fw-semibold">Login</a>
+      </small>
+    </div>
+  </div>
+</div>
+{% endblock %}

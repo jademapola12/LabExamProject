@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100 bg-gradient" style="background: linear-gradient(to right, #e0f7fa, #e1bee7);">
+  <div class="card border-0 shadow-lg p-4 rounded-4" style="width: 100%; max-width: 420px; background-color: #ffffffee;">
+    <h2 class="text-center mb-4 text-primary fw-bold">HELLO!</h2>
+
+    {% if form.errors %}
+      <div class="alert alert-danger rounded-3">
+        <strong>Oops!</strong> Please check the following:
+        <ul class="mb-0">
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Username</label>
+        {{ form.username|add_class:"form-control rounded-pill py-2 px-3 border border-primary-subtle" }}
+      </div>
+      <div class="mb-3">
+        <label for="id_password" class="form-label">Password</label>
+        {{ form.password|add_class:"form-control rounded-pill py-2 px-3 border border-primary-subtle" }}
+      </div>
+      <button type="submit" class="btn btn-primary w-100 rounded-pill fw-semibold py-2">Login</button>
+    </form>
+
+    <small class="d-block text-center mt-4 text-muted">
+      Don’t have an account?
+      <a href="{% url 'register' %}" class="text-primary fw-semibold text-decoration-none">Create one</a>
+    </small>
+  </div>
+</div>
+{% endblock %}
